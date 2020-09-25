@@ -1,0 +1,27 @@
+version: "3.5"
+services:
+    main:
+        container_name: ${PKG_NAME}
+        image: ${DOCKER_REPO}/${DOCKER_IMAGE}:${VERSION}
+        user: root
+        build:
+            context: ./
+            dockerfile: Dockerfile
+            target: ${ENV}_stage
+            args:
+                - PKG_NAME
+        ports:
+            - "0.0.0.0:8080:8080"
+        # bind mount to the local resources directory
+        volumes:
+            # for development
+            - .:/root/catkin_ws/src/${PKG_NAME}
+            - /tmp/.X11-unix:/tmp/.X11-unix
+        environment:
+            - DISPLAY=${HOST_IP}:0
+            - QT_X11_NO_MITSHM=1
+        # allows us to attach to the container and examine it in development
+        stdin_open: true
+        tty: true
+        # make sure the docker container comes back up when it goes down automatically
+        restart: always

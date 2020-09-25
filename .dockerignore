@@ -1,0 +1,27 @@
+# General
+.gitignore
+.DS_Store
+.git
+
+# Docker info
+Dockerfile
+**/docker-compose.yml
+**/.dockerignore
+*.env
+
+# Documentation
+README.md
+
+# Byte-compiled / optimized / DLL files
+__pycache__
+*.pyc
+
+# Testing and Coverage
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+cover
