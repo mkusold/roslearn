@@ -1,0 +1,10 @@
+<launch>
+  <arg name="using_simulator" default="true"/>
+
+  <!-- Setup global configuration parameters. These parameters will be available for all nodes to use -->
+  <rosparam command="load" file="$(find roslearn_bringup)/config/global_config.yaml" ns="global" />
+
+  <group if="$(arg using_simulator)">
+  </group>
+
+</launch>
