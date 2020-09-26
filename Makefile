@@ -5,6 +5,10 @@ help: ## Show help message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 # GENERAL DEVELOPMENT TOOLING
+.PHONY: install
+install: ## installs external dependencies
+	@(python pm.py && cd ${CATKIN_WS} && catkin_make)
+
 .PHONY: clean
 clean: ## Removes compiled python code to ensure it is freshly regenerated on the next run
 	@(cd ${CATKIN_WS} && find . -name '*.pyc' -delete && find . -name '__pycache__' -delete)
