@@ -16,7 +16,8 @@ ENV CATKIN_WS=/root/catkin_ws
 RUN apt-get update && apt-get install  --no-install-recommends -y \
   build-essential \
   python-rosdep \
-  python-pip
+  python-pip \
+  git 
 
 # update pip
 RUN pip install --upgrade pip

@@ -36,3 +36,5 @@ settings.json
 
 # Ignore CATKIN_IGNORE
 */CATKIN_IGNORE
+
+external_packages
