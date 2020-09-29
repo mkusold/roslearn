@@ -11,17 +11,19 @@
 ### Prerequisites & Configuration
 
 1. Download and setup [docker](https://www.docker.com/get-started) Note: docker-compose is usually packaged with most Docker installations
+2. Download [gazebo 9](http://gazebosim.org/tutorials?cat=install) on your local machine. For Macs, just run `brew install gazebo9`.
+3. Install a [VNC Viewer](https://www.realvnc.com/en/connect/download/viewer/macos/). If you use Chrome, you can use the Chrome App [VNC Viewer for Google Chrome](https://chrome.google.com/webstore/detail/vnc%C2%AE-viewer-for-google-ch/iabmpiboiopbgfabjmgeedhcmjenhbla?hl=en). The VNC Viewer helps see the GUI for Gazebo.
 
 OSX:
 
 1. Download [XQuartz](https://www.xquartz.org/)
 2. Activate the option ‘Allow connections from network clients’ in XQuartz settings
-3. run `bash xquarzsetup.sh` and copy your IP address into the `.env` file
+3. run `bash macSetup.sh` and copy your IP address into the `.env` file
 
 ### ENV file
 
 1. The `.env` file stores the build and run configuration for the project's docker container.
-2. In particular, note the `ENV` varible in `.env` file. `ENV` could be one of `base`, `dev`, `test` or `prod`.
+2. In particular, note the `ENV` varible in `.env` file. `ENV` could be one of `dev`, `test` or `prod`.
 
 ## Utilizing Docker
 
@@ -58,6 +60,13 @@ To manually run one python unit test at a time you can run it like so: `python -
 ### Node Testing
 
 You can run an individual ROS node tes like so: `rostest sample_package.test`
+
+### Simulation Testing
+
+1. Within the Docker container, run `make gazebo`
+2. On your host machine run your VNC Viewer and connect to `localhost:5900` to see the gazebo instance running in the container
+
+If you run into issues with gazebo, try running `--verbose`. If an old crashed gazebo server is still running, you can clear it out by running `killall gzserver`
 
 ## Project Quality Checklist
 

@@ -22,8 +22,14 @@ update-packages: register ## adds and updates new ROS Packages
 	@(cd ${CATKIN_WS} && catkin_make)
 
 .PHONY: graph
-graph:
+graph: ## Shows ROS node graph
 	@(rqt_graph)
+
+.PHONY: gazebo
+gazebo: ## launches gazebo and sets up VNC Viewer connections
+	@(Xvfb :1 -screen 0 1600x1200x16 & \
+	x11vnc & \
+	roslaunch gazebo_ros empty_world.launch)
 
 # TESTING
 .PHONY: coverage

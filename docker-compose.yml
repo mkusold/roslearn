@@ -11,15 +11,22 @@ services:
             args:
                 - PKG_NAME
         ports:
-            - "0.0.0.0:8080:8080"
-        # bind mount to the local resources directory
+            # for gazebo VNC forwarding
+            - "0.0.0.0:5900:5900"
         volumes:
-            # for development
+            # bind mount to the local resources directory for development
             - .:/root/catkin_ws/src/${PKG_NAME}
-            - /tmp/.X11-unix:/tmp/.X11-unix
+            # # sound
+            # - ~/.config/pulse:/home/pulseaudio/.config/pulse
+            # gazebo
+            - /tmp/.gazebo/:/root/.gazebo/
+            # X11 forwarding
+            - /tmp/.X11-unix:/tmp/.X11-unix:rw
         environment:
-            - DISPLAY=${HOST_IP}:0
+            # - DISPLAY=${HOST_IP}:0
+            - DISPLAY=:1.0
             - QT_X11_NO_MITSHM=1
+            # - PULSE_SERVER=host.docker.internal
         # allows us to attach to the container and examine it in development
         stdin_open: true
         tty: true
