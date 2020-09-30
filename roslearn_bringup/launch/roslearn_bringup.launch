@@ -5,6 +5,7 @@
   <rosparam command="load" file="$(find roslearn_bringup)/config/global_config.yaml" ns="global" />
 
   <group if="$(arg using_simulator)">
+    <include file="$(find simulation)/launch/simulation.launch" />
   </group>
 
 </launch>
