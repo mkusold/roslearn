@@ -18,7 +18,7 @@ OSX:
 
 1. Download [XQuartz](https://www.xquartz.org/)
 2. Activate the option ‘Allow connections from network clients’ in XQuartz settings
-3. run `bash macSetup.sh` and copy your IP address into the `.env` file
+3. run `bash macSetup.sh`
 
 ### ENV file
 

@@ -37,3 +37,4 @@ settings.json
 */CATKIN_IGNORE
 
 external_packages
+x11vnc.pass

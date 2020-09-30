@@ -23,13 +23,12 @@ update-packages: register ## adds and updates new ROS Packages
 
 .PHONY: graph
 graph: ## Shows ROS node graph
-	@(rqt_graph)
+	@(DISPLAY=${HOST_IP}:0 bash -c 'rqt_graph')
 
-.PHONY: gazebo
-gazebo: ## launches gazebo and sets up VNC Viewer connections
+.PHONY: vnc
+vnc: ## sets up VNC Viewer connections
 	@(Xvfb :1 -screen 0 1600x1200x16 & \
-	x11vnc & \
-	roslaunch gazebo_ros empty_world.launch)
+	x11vnc -ncache 10 -q -o ~/vncLogfile & > /dev/null 2>&1 )
 
 # TESTING
 .PHONY: coverage
