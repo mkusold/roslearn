@@ -2,7 +2,6 @@
 
 # Miscellaneous
 .DS_Store
-/local.env
 
 # Byte-compiled / optimized / DLL files
 __pycache__
@@ -38,3 +37,4 @@ settings.json
 */CATKIN_IGNORE
 
 external_packages
+x11vnc.pass

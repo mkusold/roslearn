@@ -17,10 +17,13 @@ RUN apt-get update && apt-get install  --no-install-recommends -y \
   build-essential \
   python-rosdep \
   python-pip \
-  git 
+  # PROJECT DEPENDENCIES
+  pulseaudio \
+  ros-${ROS_DISTRO}-robot-pose-ekf \
+  bluetooth \
+  libbluetooth-dev
 
-# update pip
-RUN pip install --upgrade pip
+RUN pip install --upgrade pip 
 
 # bootstrap rosdep
 RUN rosdep init && \
@@ -50,12 +53,23 @@ RUN apt-get update && apt-get install -y \
   # CLI tools
   tmux \
   nano \
-  # linting and testing
+  git \
+  psmisc \
+  # LINTING & TESTING
   python-autopep8 \
   python-coverage \
   python-mock \
-  # visualization tools
+  # VISUALIZATION
+  # gazebo
+  x11vnc \
+  xvfb \
+  ufw \
+  ros-${ROS_DISTRO}-gazebo9* \
+  ros-${ROS_DISTRO}-gazebo-ros-pkgs \
+  ros-${ROS_DISTRO}-gazebo-ros-control \
+  # turtlesim specifically
   ros-${ROS_DISTRO}-turtlesim \
+  # std ROS visualization tools
   ros-${ROS_DISTRO}-rqt-graph \
   ros-${ROS_DISTRO}-rviz
 
@@ -63,7 +77,7 @@ RUN apt-get update && apt-get install -y \
 RUN source /opt/ros/${ROS_DISTRO}/setup.bash \
   # Update apt-get because its cache is always cleared after installs to keep image size down
   && apt-get update \
-  # Install dependencies
+  # Install dependencies listed in package's cmakes dependency lists
   && rosdep update \
   && rosdep install -y --from-paths . --ignore-src -r --rosdistro ${ROS_DISTRO} \
   # Build catkin workspace

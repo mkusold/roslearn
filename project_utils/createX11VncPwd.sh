@@ -1,0 +1,1 @@
+x11vnc -storepasswd "password" ../x11vnc.pass
