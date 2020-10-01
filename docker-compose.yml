@@ -23,8 +23,9 @@ services:
             # X11 forwarding
             - /tmp/.X11-unix:/tmp/.X11-unix:rw
         environment:
-            #  uncomment to use Xquartz
+            #  uncomment to use Xquartz for things like the graph and turtle sim
             # - DISPLAY=${HOST_IP}:0
+            #  uncomment to use VNC Viewer for Gazebo and Rviz
             - DISPLAY=:1.0
             - QT_X11_NO_MITSHM=1
             - PULSE_SERVER=${HOST_IP}

@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!-- Defines a simulated world populated with objects and places the Sphero robot in the world to be manipulated -->
 <launch>
-        <!-- overwriting these args -->
+        <!-- Exposing Simulation Arguments -->
+        <!-- <arg name="world_file" default="$(find simulation)/world/test_world.sdf" /> -->
+        <arg name="world_file" default="$(find simulation)/world/bot_test.world" />
         <arg name="debug" default="false" />
         <arg name="gui" default="true" />
         <arg name="pause" default="false" />
-        <arg name="world" default="$(find simulation)/world/test_world.sdf" />
 
-        <!-- include gazebo_ros launcher -->
+        <!-- World Model Definition -->
         <include file="$(find gazebo_ros)/launch/empty_world.launch">
-                <arg name="world_name" value="$(arg world)" />
+                <arg name="world_name" value="$(arg world_file)" />
                 <arg name="debug" value="$(arg debug)" />
                 <arg name="gui" value="$(arg gui)" />
                 <arg name="paused" value="$(arg pause)" />
                 <arg name="use_sim_time" value="true" />
+                <arg name="verbose" value="true" />
         </include>
+
+        <!-- Initial Robot Pose -->
+        <arg name="x" default="0"/>
+        <arg name="y" default="0"/>
+        <arg name="z" default="0"/>
+        <arg name="roll" default="0"/>
+        <arg name="pitch" default="0"/>
+        <arg name="yaw" default="0"/>
+
+        <!-- Robot Model Definition -->
+        <param name="robot_description" textfile='$(find simulation)/robot_description/urdf/sphero.urdf' />
+        <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+                args="-file $(find simulation)/robot_description/urdf/sphero.urdf -urdf -model sphero
+                -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)" />
+
+        <!-- Simulation -->
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"/>
+
 </launch>

@@ -1,0 +1,10 @@
+<launch>
+  <arg name="model" />
+
+  <param name="robot_description" textfile="$(find simulation)/robot_description/urdf/sphero.urdf" />
+  <param name="use_gui" value="true"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"/>
+  
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find simulation)/urdf_viewer.rviz" required="true" />
+
+</launch>
